@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "description": "Audio chat using WebRTC and PeerJS",
   "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
   "dependencies": {
     "express": "~4.10.2",
     "ejs": "~1.0.0",

@@ -38,13 +38,15 @@ router.get('/:id', function(req, res) {
   if (!call) return res.redirect('/new');
 
   res.render('call', {
-    call: call.toJSON()
+    call: call.toJSON(),
+    port: process.env.PORT, 
+    host: "mighty-sierra-30253.herokuapp.com"
   });
 });
 
 // Landing page
 router.get('/', function(req, res) {
-  res.render('index');
+  res.render('index', {port: process.env.PORT, host: "mighty-sierra-30253.herokuapp.com"});
 });
 
 module.exports = router;

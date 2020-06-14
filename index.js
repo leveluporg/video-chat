@@ -10,8 +10,8 @@ const { ExpressPeerServer } = require('peer');
 SSL_KEY_FILE = './key.pem'
 SSL_CERT_FILE = './cert.pem'
 SSL_PASS = 'sampath'
-SERVER_PORT = 443
-SECURE = fs.existsSync(SSL_KEY_FILE)
+SERVER_PORT = process.env.PORT;
+SECURE = false; // fs.existsSync(SSL_KEY_FILE)
 
 var app = express();
 app.use(cors());
@@ -33,7 +33,7 @@ if (SECURE) {
       console.log("secure server started on port - " + SERVER_PORT);
     });
 } else {
-    server = http.createServer(options, app).listen(SERVER_PORT, function(){
+    server = http.createServer(app).listen(SERVER_PORT, function(){
       console.log("server started on port - " + SERVER_PORT);
     });
 }

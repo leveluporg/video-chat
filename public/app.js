@@ -29,7 +29,7 @@ function init() {
 function connectToPeerJS(cb) {
   display('Connecting to PeerJS...');
   me = new Peer({
-            host: 'localhost',
+            host: window.HOST,
             port: 443,
             path: '/peerjs'
         });
