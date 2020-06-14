@@ -10,8 +10,8 @@ const { ExpressPeerServer } = require('peer');
 SSL_KEY_FILE = './key.pem'
 SSL_CERT_FILE = './cert.pem'
 SSL_PASS = 'sampath'
-SERVER_PORT = process.env.PORT;
-SECURE = false; // fs.existsSync(SSL_KEY_FILE)
+SERVER_PORT = process.env.PORT || 9000;
+SECURE = fs.existsSync(SSL_KEY_FILE)
 
 var app = express();
 app.use(cors());
