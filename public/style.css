@@ -31,15 +31,7 @@ a { color: blue; }
   line-height: inherit;
 }
 
-footer {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  padding: 15px 0;
-  background: #fff;
-}
-
-footer p {
-  max-width: 600px;
-  margin: 0 auto;
+video {
+    width: 320;
+    height: 320;
 }

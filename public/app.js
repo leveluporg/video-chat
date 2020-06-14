@@ -100,7 +100,7 @@ function addIncomingStream(peer, stream) {
 
 // Create an <audio> element to play the audio stream
 function playStream(stream) {
-  var audio = $('<audio autoplay />').appendTo('body');
+  var audio = $('<video autoplay />').appendTo('body');
   //audio[0].src = (URL || webkitURL || mozURL).createObjectURL(stream);
   audio[0].srcObject = stream;
 }
@@ -110,7 +110,7 @@ function getLocalAudioStream(cb) {
   display('Trying to access your microphone. Please click "Allow".');
 
   navigator.getUserMedia (
-    {video: false, audio: true},
+    {video: true, audio: false},
 
     function success(audioStream) {
       display('Microphone is open.');
