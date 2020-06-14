@@ -1,0 +1,16 @@
+{
+  "name": "audio-chat",
+  "version": "0.0.0",
+  "description": "Audio chat using WebRTC and PeerJS",
+  "main": "index.js",
+  "dependencies": {
+    "express": "~4.10.2",
+    "ejs": "~1.0.0",
+    "uuid": "~2.0.1",
+    "peer": "0.5.3",
+    "cors": "2.8.5"
+  },
+  "devDependencies": {},
+  "author": "Audio King",
+  "license": "BSD-2-Clause"
+}
