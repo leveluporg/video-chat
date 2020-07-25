@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var config = require('./config')
 
 var Call = require('./call');
 
@@ -39,14 +40,17 @@ router.get('/:id', function(req, res) {
 
   res.render('call', {
     call: call.toJSON(),
-    port: process.env.PORT, 
-    host: "mighty-sierra-30253.herokuapp.com"
+    port: config.PORT, 
+    host: config.HOST
   });
 });
 
 // Landing page
 router.get('/', function(req, res) {
-  res.render('index', {port: process.env.PORT, host: "mighty-sierra-30253.herokuapp.com"});
+  res.render('index', {
+    port: config.PORT,
+    host: config.HOST
+  });
 });
 
 module.exports = router;

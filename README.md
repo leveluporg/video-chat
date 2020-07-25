@@ -1,11 +1,6 @@
-WebRTC / PeerJS Audio Chat Demo
-=================
+Chat with ma frnz
+================
 
-This is a barebones proof-of-concept WebRTC audio chat app built using [PeerJS](http://peerjs.com). It uses a simple Node backend that keeps track of peer IDs for each call.
-
-[Live demo](http://audiochat.noahburney.com/)
-
--------------------------------
 ## How it works
 This app uses the new [WebRTC APIs](http://www.html5rocks.com/en/tutorials/webrtc/basics/) to connect directly to other users' browsers. Here's how it all works.
 
@@ -95,16 +90,12 @@ Also note the `autoplay` attribute. You don't have to have this, but if you don'
 *That's it. You can read more about using PeerJS in their [documentation](http://peerjs.com/docs/).*
 
 -------------------------------
-## Running demo locally
-To run this demo on your computer, first you'll need to [get a PeerJS API key](http://peerjs.com/peerserver) (it's free).
-
-Once you have an API key, copy (or rename) `config.js.example` to `config.js`, then open it and add your API key there.
-
-Now just install dependencies and run the server:
-
+## Running this on heroku
 ```
-$ npm install
-$ node .
+git push heroku master
 ```
 
-Open `http://localhost:6767` in your browser and you should be able to make calls.
+## Stream heroku logs
+```
+heroku logs --tail
+```

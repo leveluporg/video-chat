@@ -5,15 +5,19 @@ var https = require('https');
 var express = require('express');
 var cors = require('cors');
 var routes = require('./routes');
+var config = require('./config');
 const { ExpressPeerServer } = require('peer');
 
-SSL_KEY_FILE = './key.pem'
-SSL_CERT_FILE = './cert.pem'
+SSL_KEY_FILE = './certs/key.pem'
+SSL_CERT_FILE = './certs/cert.pem'
 SSL_PASS = 'sampath'
-SERVER_PORT = process.env.PORT || 9000;
+SERVER_PORT = config.PORT
 SECURE = false;
 
-if (fs.existsSync(SSL_KEY_FILE)) secure = true;
+if (fs.existsSync(SSL_KEY_FILE)) {
+    console.log('SSL certs found.');
+    SECURE = true;
+}
 
 console.log('Secure:', SECURE);
 var app = express();

@@ -6,6 +6,12 @@ var me = {};
 var myStream;
 var peers = {};
 
+// Backend Config
+const SERVER_HOST = window.location.hostname;
+if (window.location.port != null) {
+  SERVER_PORT = window.location.port;
+}
+
 init();
 
 // Start everything up
@@ -14,7 +20,8 @@ function init() {
 
   getLocalAudioStream(function(err, stream) {
     if (err || !stream) return;
-
+    
+    displayLocalStream(stream);
     connectToPeerJS(function(err) {
       if (err) return;
 
@@ -25,12 +32,16 @@ function init() {
   });
 }
 
+function displayLocalStream(stream) {
+   playStream(stream, true); 
+}
+
 // Connect to PeerJS and get an ID
 function connectToPeerJS(cb) {
   display('Connecting to PeerJS...');
   me = new Peer({
-            host: window.HOST,
-            port: 443,
+            host: SERVER_HOST,
+            port: SERVER_PORT,
             path: '/peerjs'
         });
 
@@ -95,14 +106,19 @@ function handleIncomingCall(incoming) {
 function addIncomingStream(peer, stream) {
   display('Adding incoming stream from ' + peer.id);
   peer.incomingStream = stream;
-  playStream(stream);
+  playStream(stream, false);
 }
 
 // Create an <audio> element to play the audio stream
-function playStream(stream) {
-  var audio = $('<video autoplay />').appendTo('body');
+function playStream(stream, local) {
+  var videoHolder = $('#remote-streams-holder');
+  if (local === true) {
+    var videoHolder = $('#local-stream-holder');
+  }
+  video = $('<video autoplay />')
   //audio[0].src = (URL || webkitURL || mozURL).createObjectURL(stream);
-  audio[0].srcObject = stream;
+  video[0].srcObject = stream;
+  videoHolder.append(video)
 }
 
 // Get access to the microphone
