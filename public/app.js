@@ -32,6 +32,7 @@ function init() {
   });
 }
 
+// Display local stream
 function displayLocalStream(stream) {
    playStream(stream, true); 
 }
@@ -111,9 +112,9 @@ function addIncomingStream(peer, stream) {
 
 // Create an <audio> element to play the audio stream
 function playStream(stream, local) {
-  var videoHolder = $('#remote-streams-holder');
+  var videoHolder = $('#remote-streams');
   if (local === true) {
-    var videoHolder = $('#local-stream-holder');
+    var videoHolder = $('#local-streams');
   }
   video = $('<video autoplay />')
   //audio[0].src = (URL || webkitURL || mozURL).createObjectURL(stream);
@@ -126,7 +127,7 @@ function getLocalAudioStream(cb) {
   display('Trying to access your microphone. Please click "Allow".');
 
   navigator.getUserMedia (
-    {video: true, audio: false},
+    {video: true, audio: true},
 
     function success(audioStream) {
       display('Microphone is open.');
@@ -150,10 +151,10 @@ function getPeer(peerId) {
 }
 
 function displayShareMessage() {
-  display('Give someone this URL to chat.');
-  display('<input type="text" value="' + location.href + '" readonly>');
+  share_url = ('<input type="text" value="' + location.href + '" readonly>');
+  $('<div />').html(share_url).appendTo('#url');
   
-  $('#display input').click(function() {
+  $('#url input').click(function() {
     this.select();
   });
 }
@@ -163,5 +164,5 @@ function unsupported() {
 }
 
 function display(message) {
-  $('<div />').html(message).appendTo('#display');
+  $('<div />').html(message).appendTo('#log');
 }
