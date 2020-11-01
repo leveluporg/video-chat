@@ -11,9 +11,9 @@
     "ejs": "~1.0.0",
     "express": "~4.10.2",
     "peer": "0.5.3",
+    "socket.io": "^2.3.0",
     "uuid": "~2.0.1"
   },
-  "devDependencies": {},
   "author": "Audio King",
   "license": "BSD-2-Clause"
 }

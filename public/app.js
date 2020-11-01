@@ -25,6 +25,11 @@ function init() {
       if (err) return;
 
       registerIdWithServer().then(() => {
+        window.socket = io();
+        window.socket.emit('details', JSON.stringify({
+          'callId': call.id,
+          'peerId': window.me.id
+        }));
         if (call.peers.length) callPeers();
         displayShareMessage();
       });
