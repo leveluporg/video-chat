@@ -12,13 +12,28 @@ Call.prototype.toJSON = function() {
   return {id: this.id, started: this.started, peers: this.peers};
 };
 
-Call.prototype.addPeer = function(peerId) {
-  this.peers.push(peerId);
+Call.prototype.addPeer = function(username, peerId) {
+  this.peers.push({
+    'username': username,
+    'id': peerId
+  });
 };
 
+Call.prototype.validName = function(username) {
+  console.log(this.peers);
+  for (peer of this.peers) {
+    console.log(peer);
+    if (peer['username'] === username) return false;
+  }
+  return true;
+}
+
 Call.prototype.removePeer = function(peerId) {
-  var index = this.peers.lastIndexOf(peerId);
-  if (index !== -1) this.peers.splice(index, 1);
+  for (idx in this.peers) {
+    if (this.peers[idx]['id'] === peerId) {
+      this.peers.splice(idx, 1);
+    }
+  }
 };
 
 Call.create = function(room) {

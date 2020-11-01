@@ -17,23 +17,25 @@ router.get('/connect/:room', function(req, res) {
   res.redirect('/room/' + call.id);
 });
 
-router.get('/rooms', function(req, res) {
-  res.setHeader('Content-Type', 'application/json');
-  res.end(JSON.stringify(rooms));
-})
-
 // Add PeerJS ID to Call instance when someone opens the page
-router.post('/room/:id/addpeer/:peerid', function(req, res) {
-  peerId = req.params['peerid'];
-  callId = req.params['id']
+router.post('/room/:id/addpeer/:peerId/name/:name', function(req, res) {
+  callId = req.params['id'];
+  peerId = req.params['peerId'];
+  username = req.params['name'];
   
   var call = Call.get(callId);
   if (!call) {
     return res.status(404).send('Call not found');
   }
 
-  call.addPeer(peerId);
-  res.json(call.toJSON());
+  if (call.validName(username)) {
+    console.log('Valid name - ', username)
+    call.addPeer(username, peerId);
+    res.json(call.toJSON());
+  } else {
+    res.status(400).end('Username taken');
+  }
+  
 });
 
 // Remove PeerJS ID when someone leaves the page
@@ -110,11 +112,15 @@ router.get('/all', function(req, res) {
 
 // Landing page
 router.get('/', function(req, res) {
+  res.redirect('/room/meetkola/');
+});
+
+router.get('/rooms', function(req, res) {
   res.render('index', {
     port: config.PORT,
     host: config.HOST, 
     rooms: rooms
   });
-});
+})
 
 module.exports = router;

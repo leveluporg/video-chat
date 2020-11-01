@@ -6,32 +6,40 @@ body {
 
 a { color: blue; }
 
-#main {
+body {
+    max-width: 80%;
+    margin: auto;
 }
 
 #log {
-    position: absolute;
-    top: 100px;
-    left: 20px;
+    margin: 20px;
+    text-align: center;
 }
 
 #url {
-    position: absolute;
-    bottom: 20px;
     text-align: center
+}
+
+#url {
+    border: none;
+    width: 100%;
+}
+
+#local-streams {
+    text-align: center;
+}
+
+#remote-streams {
+    text-align: center;
 }
 
 #local-streams > video {
     width: 200px;
     height: 200px;
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
 }
 
-#reomte-streams > video {
-    width: 200px;
-    height: 200px;
-    position: absolute;
+#remote-streams > video {
+    width: 400px;
+    height: 400px;
 }
 
