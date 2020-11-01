@@ -4,7 +4,7 @@
   "description": "Audio chat using WebRTC and PeerJS",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "node server.js"
   },
   "dependencies": {
     "cors": "2.8.5",
