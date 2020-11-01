@@ -4,14 +4,14 @@
   "description": "Audio chat using WebRTC and PeerJS",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "nodemon server.js"
   },
   "dependencies": {
-    "express": "~4.10.2",
+    "cors": "2.8.5",
     "ejs": "~1.0.0",
-    "uuid": "~2.0.1",
+    "express": "~4.10.2",
     "peer": "0.5.3",
-    "cors": "2.8.5"
+    "uuid": "~2.0.1"
   },
   "devDependencies": {},
   "author": "Audio King",

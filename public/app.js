@@ -12,6 +12,8 @@ if (window.location.port != null) {
   SERVER_PORT = window.location.port;
 }
 
+CONNECTION_STATE = 'NOT_CONNECTED'
+
 init();
 
 // Start everything up
@@ -45,6 +47,8 @@ function connectToPeerJS(cb) {
             port: SERVER_PORT,
             path: '/peerjs'
         });
+  
+  CONNECTION_STATE = 'CONNECTED';
 
   me.on('call', handleIncomingCall);
   
@@ -60,15 +64,33 @@ function connectToPeerJS(cb) {
   });
 }
 
+// disconnect when navigate away from room
+$(document).ready(function() {
+  $(window).on("beforeunload", disconnect);
+  $(window).on("unload", disconnect);
+});
+
+function disconnect(e) {
+  console.log('Disconnecting from call! Please wait..')
+  if (CONNECTION_STATE === 'CONNECTED') {
+    CONNECTION_STATE = 'DISCONNECTING';
+    unregisterIdWithServer();
+    me.disconnect();
+  }
+  if (CONNECTION_STATE === 'DISCONNECTING') {
+    return "Please wait while we disconnect you. Do you still continue?";
+  }
+}
+
 // Add our ID to the list of PeerJS IDs for this call
 function registerIdWithServer() {
   display('Registering ID with server...');
-  $.post('/' + call.id + '/addpeer/' + me.id);
+  $.post('/room/' + call.id + '/addpeer/' + me.id);
 } 
 
 // Remove our ID from the call's list of IDs
 function unregisterIdWithServer() {
-  $.post('/' + call.id + '/removepeer/' + me.id);
+  $.post('/room/' + call.id + '/removepeer/' + me.id);
 }
 
 // Call each of the peer IDs using PeerJS
@@ -112,13 +134,19 @@ function addIncomingStream(peer, stream) {
 
 // Create an <audio> element to play the audio stream
 function playStream(stream, local) {
+  video = $('<video autoplay />')
+  // setting a stream as source of a video element is tricky.
+  // audio[0].src = (URL || webkitURL || mozURL).createObjectURL(stream);
+  video[0].srcObject = stream;
+
+  // mute audio if local stream
+  video[0].muted = local;
+  
+  // add to right container
   var videoHolder = $('#remote-streams');
   if (local === true) {
     var videoHolder = $('#local-streams');
   }
-  video = $('<video autoplay />')
-  //audio[0].src = (URL || webkitURL || mozURL).createObjectURL(stream);
-  video[0].srcObject = stream;
   videoHolder.append(video)
 }
 
@@ -136,7 +164,7 @@ function getLocalAudioStream(cb) {
     },
 
     function error(err) {
-      display('Couldn\'t connect to microphone. Reload the page to try again.');
+      display("Couldn't connect to microphone. Reload the page to try again.");
       if (cb) cb(err);
     }
   );

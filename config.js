@@ -8,7 +8,10 @@ if (process.env.PORT != null) {
   PORT = process.env.PORT;
 }
 
+var ROOMS = ['meetkola']
+
 module.exports = {
   HOST: HOST,
-  PORT: PORT
+  PORT: PORT,
+  ROOMS: ROOMS
 }

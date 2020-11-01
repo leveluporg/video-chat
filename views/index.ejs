@@ -4,16 +4,26 @@
   <title>WebRTC/PeerJS Audio Chat</title>
   <link rel="stylesheet" type="text/css" href="/normalize.css">
   <link rel="stylesheet" type="text/css" href="/style.css">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 </head>
 <script>
   window.HOST = <%- '"' + host + '"' %>;
+  window.rooms = <%-JSON.stringify(rooms)%>;
+
+  $(document).ready(function() {
+    console.log("Ready!");
+    for (room of rooms) {
+      $("#room-list").append('<li> <a href="/connect/'+ room + '">' + room +'</a></li>');
+    }
+  })
 </script>
 <body>
   <div class="wrapper overview">
     <h1>Video conference</h1>
     <p>
       <br><br>
-      <a href="/new">Start a call</a>
+      <ul id="room-list">
+      </ul>
     </p>
   </div>
 
