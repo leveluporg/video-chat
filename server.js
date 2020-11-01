@@ -47,7 +47,7 @@ if (SECURE) {
 }
 
 const io = socket(server, {
-  pingInterval: 10000,
+  pingInterval: 5000,
   pingTimeout: 5000
 });
 
