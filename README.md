@@ -94,6 +94,10 @@ Also note the `autoplay` attribute. You don't have to have this, but if you don'
 ```
 git push heroku master
 ```
+## Running this locally
+```
+nodemon server.js
+```
 
 ## Stream heroku logs
 ```
