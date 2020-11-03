@@ -13,19 +13,21 @@ Call.prototype.toJSON = function() {
 };
 
 Call.prototype.addPeer = function(username, peerId) {
-  this.peers.push({
-    'username': username,
-    'id': peerId
-  });
+  if (!this.peerExists(username, peerId)) {
+    this.peers.push({
+      'username': username,
+      'id': peerId
+    });
+  }
 };
 
-Call.prototype.validName = function(username) {
-  console.log(this.peers);
+Call.prototype.peerExists = function(username, peerId='') {
   for (peer of this.peers) {
-    console.log(peer);
-    if (peer['username'] === username) return false;
+    if (peer['username'] === username || peer['id'] === peerId) {
+      return true;
+    }
   }
-  return true;
+  return false;
 }
 
 Call.prototype.removePeer = function(peerId) {

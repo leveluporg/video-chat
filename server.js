@@ -58,6 +58,11 @@ io.on('connection', (socket) => {
     msg = JSON.parse(message);
     socket.callId = msg['callId'];
     socket.peerId = msg['peerId'];
+    socket.username = msg['username'];
+    var call = Call.get(socket.callId);
+    if (call) {
+      call.addPeer(socket.username, socket.peerId);
+    }
     console.log('Registered user - ', socket.peerId, 'on call - ', socket.callId);
   })
 

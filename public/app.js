@@ -28,7 +28,8 @@ function init() {
         window.socket = io();
         window.socket.emit('details', JSON.stringify({
           'callId': call.id,
-          'peerId': window.me.id
+          'peerId': window.me.id,
+          'username': window.username
         }));
         if (call.peers.length) callPeers();
         displayShareMessage();

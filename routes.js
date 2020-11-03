@@ -28,8 +28,7 @@ router.post('/room/:id/addpeer/:peerId/name/:name', function(req, res) {
     return res.status(404).send('Call not found');
   }
 
-  if (call.validName(username)) {
-    console.log('Valid name - ', username)
+  if (!call.peerExists(username)) {
     call.addPeer(username, peerId);
     res.json(call.toJSON());
   } else {
